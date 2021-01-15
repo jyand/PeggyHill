@@ -3,7 +3,6 @@ import (
         "fmt"
         "os"
         "bufio"
-        "regexp"
 )
 
 func StringsFromFile(fpath string) []string {
@@ -32,25 +31,16 @@ func CharTuples() []string {
         return s
 }
 
-func MatchTuples(tuples []string, words []string) []string {
-        s := []string{}
-
-        for j := 0 ; j < len(tuples) ; j++ {
-                re := regexp.MustCompile(tuples[j])
-                for i := 0 ; i < len(words) ; i++ {
-                        if re.MatchString(words[i]) {
-                                s = append(s, tuples[j])
-                                break
-                        }
-                }
-        }
-        return s
-}
-
 func main() {
-        str := MatchTuples(CharTuples(), StringsFromFile("corncob.dat"))
-        for i := 0 ; i < len(str) ; i++ {
-                fmt.Println(str[i])
+        words := StringsFromFile("corncob.dat")
+        for i := 0 ; i < len(words) ; i++ {
+                fmt.Println(words[i])
         }
-        fmt.Println(len(str))
+        fmt.Println(len(words))
+
+        tuples := CharTuples()
+        for i := 0 ; i < len(tuples) ; i++ {
+                fmt.Println(tuples[i])
+        }
+        fmt.Println(len(tuples))
 }
