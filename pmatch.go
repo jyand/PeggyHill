@@ -19,17 +19,20 @@ func StringsFromFile(fpath string) []string {
         return s
 }
 
-func CharTuples() []string {
-        a := [26]string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
-
+func CharTuples(seq []string, n uint8) []string {
         s := []string{}
-        for j := 0 ; j < len(a) - 1 ; j++ {
-                for i := j + 1 ; i < len(a) ; i++ {
-                        s = append(s, a[j] + a[i], a[i] + a[j])
+        for j := 0 ; j < len(seq) - 1 ; j++ {
+                for i := j + 1 ; i < len(seq) ; i++ {
+                        s = append(s, seq[j] + seq[i], seq[i] + seq[j])
                 }
         }
 
-        return s
+        if n > 1 {
+                n = n - 1
+                return CharTuples(s, n)
+        } else {
+                return s
+        }
 }
 
 func MatchTuples(tuples []string, words []string) []string {
@@ -44,11 +47,13 @@ func MatchTuples(tuples []string, words []string) []string {
                         }
                 }
         }
+
         return s
 }
 
 func main() {
-        str := MatchTuples(CharTuples(), StringsFromFile("corncob.dat"))
+        a := []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
+        str := MatchTuples(CharTuples(a, 1), StringsFromFile("corncob.dat"))
         for i := 0 ; i < len(str) ; i++ {
                 fmt.Println(str[i])
         }
