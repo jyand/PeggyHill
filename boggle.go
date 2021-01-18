@@ -19,7 +19,6 @@ func InitGame() [SIZE][SIZE]string {
         return b
 }
 
-
 func Permutations(b [SIZE][SIZE]string) []string {
         p := []string{}
         N := SIZE - 1
